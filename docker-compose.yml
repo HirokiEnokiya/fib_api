@@ -3,7 +3,7 @@ services:
     build: ./backend
     volumes:
       - ./backend:/app
-      - /app/node_modules  # ← これでコンテナ内のnode_modulesをホストと分離
+      - /app/node_modules
     ports:
       - "8080:8080"
     environment:
@@ -15,10 +15,12 @@ services:
     build: ./frontend
     volumes:
       - ./frontend:/app
+      - /app/node_modules
     ports:
       - "3000:3000"
     environment:
       - NODE_ENV=development
+      - NEXT_PUBLIC_API_BASE_URL=http://localhost:8080
     command: npm run dev
     depends_on:
       - backend
