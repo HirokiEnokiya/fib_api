@@ -12,11 +12,11 @@
 
 ### 1. フィボナッチ数API
 
-- エンドポイント: `GET /api/fib/:n`
+- エンドポイント: `GET /api/v1/fib?n={number}`
 - 概要: n番目のフィボナッチ数を返します。
 - 例:  
   ```
-  GET http://localhost:8080/api/fib?n=10
+  GET http://localhost:8080/api/v1/fib?n=10
   ```
   レスポンス例:
   ```json
