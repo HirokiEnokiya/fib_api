@@ -62,21 +62,21 @@ const router = express.Router();
 router.get("/", async (req: Request, res: Response) => {
     const n = Number(req.query.n);
     if(isNaN(n) || n < 0 || !Number.isInteger(n)){
-        res.status(HTTP_STATUS.BAD_REQUEST).send(JSON.stringify({
+        res.status(HTTP_STATUS.BAD_REQUEST).json({
             status: HTTP_STATUS.BAD_REQUEST,
             message: ERROR_MESSAGES.BAD_REQUEST
-        }));
+        });
         return;
     }
     try{
-        res.status(HTTP_STATUS.OK).send(JSON.stringify({
-            result:fastFib(n)
-        }));
+        res.status(HTTP_STATUS.OK).json({
+            result: fastFib(n)
+        });
     }catch(e){
-        res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).send(JSON.stringify({
+        res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({
             status: HTTP_STATUS.INTERNAL_SERVER_ERROR,
             message: ERROR_MESSAGES.INTERNAL_SERVER_ERROR
-        }));
+        });
     }
 });
 

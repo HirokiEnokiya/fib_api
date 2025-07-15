@@ -19,10 +19,10 @@ app.use(cors({
 
 app.use((req: Request, res: Response, next) => {
     if (req.method !== 'GET') {
-        res.status(HTTP_STATUS.METHOD_NOT_ALLOWED).send(JSON.stringify({
-            status: HTTP_STATUS.METHOD_NOT_ALLOWED,
-            message: ERROR_MESSAGES.METHOD_NOT_ALLOWED
-        }));
+        res.status(HTTP_STATUS.METHOD_NOT_ALLOWED).json({
+          status: HTTP_STATUS.METHOD_NOT_ALLOWED,
+          message: ERROR_MESSAGES.METHOD_NOT_ALLOWED
+      });
         return;
     }
     next();
