@@ -4,6 +4,8 @@ import { HTTP_STATUS } from './constants/httpStatus';
 import { ERROR_MESSAGES } from './constants/messages';
 import swaggerJsdoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
+import { fibRouter } from './routes/fib';
+import { v1Router } from "./routes/v1";
 
 const app = express();
 const port = process.env.PORT ?? 8080;
@@ -41,8 +43,6 @@ const swaggerSpec = swaggerJsdoc(swaggerOptions);
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-const v1Router = express.Router();
-
 /**
  * @openapi
  * /api/v1/example:
@@ -71,3 +71,5 @@ app.use("/api/v1", v1Router);
 app.listen(port, () => {
     console.log(`App listening on the port ${port}`);
 });
+
+export default app;

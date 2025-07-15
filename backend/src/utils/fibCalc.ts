@@ -1,4 +1,5 @@
 export function fib(n: number): number {
+  if (n < 0) throw new Error('n must be non-negative');
   if (n < 2) {
     return n;
   }
