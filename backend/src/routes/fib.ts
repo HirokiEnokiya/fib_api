@@ -61,7 +61,7 @@ const router = express.Router();
  */
 router.get("/", async (req: Request, res: Response) => {
     const n = Number(req.query.n);
-    if(isNaN(n)){
+    if(isNaN(n) || n < 0 || !Number.isInteger(n)){
         res.status(HTTP_STATUS.BAD_REQUEST).send(JSON.stringify({
             status: HTTP_STATUS.BAD_REQUEST,
             message: ERROR_MESSAGES.BAD_REQUEST

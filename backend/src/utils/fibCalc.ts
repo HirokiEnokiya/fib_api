@@ -1,5 +1,6 @@
 export function fib(n: number): number {
   if (n < 0) throw new Error('n must be non-negative');
+  if (n > 1476) throw new Error('n too large: maximum supported value is 1476');
   if (n < 2) {
     return n;
   }
