@@ -1,4 +1,6 @@
 export function fib(n: number): number {
+  if (n < 0) throw new Error('n must be non-negative');
+  if (n > 1476) throw new Error('n too large: maximum supported value is 1476');
   if (n < 2) {
     return n;
   }
@@ -11,7 +13,7 @@ export function fib(n: number): number {
  * @param fn - メモ化したい関数
  * @returns メモ化された関数
  */
-function memorize<T extends (...args: any[]) => any>(fn: T): T {
+function memoize<T extends (...args: any[]) => any>(fn: T): T {
   const cache: Record<string, ReturnType<T>> = {};
   // メモ化された関数を返す
   return ((...args: Parameters<T>): ReturnType<T> => {
@@ -25,4 +27,4 @@ function memorize<T extends (...args: any[]) => any>(fn: T): T {
   }) as T;
 }
 
-export const fastFib = memorize(fib);
+export const fastFib = memoize(fib);

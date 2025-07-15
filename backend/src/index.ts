@@ -4,6 +4,8 @@ import { HTTP_STATUS } from './constants/httpStatus';
 import { ERROR_MESSAGES } from './constants/messages';
 import swaggerJsdoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
+import { fibRouter } from './routes/fib';
+import { v1Router } from "./routes/v1";
 
 const app = express();
 const port = process.env.PORT ?? 8080;
@@ -17,10 +19,10 @@ app.use(cors({
 
 app.use((req: Request, res: Response, next) => {
     if (req.method !== 'GET') {
-        res.status(HTTP_STATUS.METHOD_NOT_ALLOWED).send(JSON.stringify({
-            status: HTTP_STATUS.METHOD_NOT_ALLOWED,
-            message: ERROR_MESSAGES.METHOD_NOT_ALLOWED
-        }));
+        res.status(HTTP_STATUS.METHOD_NOT_ALLOWED).json({
+          status: HTTP_STATUS.METHOD_NOT_ALLOWED,
+          message: ERROR_MESSAGES.METHOD_NOT_ALLOWED
+      });
         return;
     }
     next();
@@ -40,8 +42,6 @@ const swaggerOptions = {
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-
-const v1Router = express.Router();
 
 /**
  * @openapi
@@ -71,3 +71,5 @@ app.use("/api/v1", v1Router);
 app.listen(port, () => {
     console.log(`App listening on the port ${port}`);
 });
+
+export default app;

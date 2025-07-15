@@ -26,4 +26,11 @@ describe("fastFib", () => {
         expect(fastFib(30)).toBe(832040);
         expect(fastFib(35)).toBe(9227465);
     })
+
+    test("nが負の数の場合", () => {
+        expect(() => fastFib(-1)).toThrow();
+    })
+
+    
+
 })
