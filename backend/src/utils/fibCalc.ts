@@ -12,7 +12,7 @@ export function fib(n: number): number {
  * @param fn - メモ化したい関数
  * @returns メモ化された関数
  */
-function memorize<T extends (...args: any[]) => any>(fn: T): T {
+function memoize<T extends (...args: any[]) => any>(fn: T): T {
   const cache: Record<string, ReturnType<T>> = {};
   // メモ化された関数を返す
   return ((...args: Parameters<T>): ReturnType<T> => {
@@ -26,4 +26,4 @@ function memorize<T extends (...args: any[]) => any>(fn: T): T {
   }) as T;
 }
 
-export const fastFib = memorize(fib);
+export const fastFib = memoize(fib);
