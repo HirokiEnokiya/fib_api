@@ -67,6 +67,7 @@ v1Router.get("/example", async (req: Request, res: Response) => {
 });
 
 app.use("/api/v1", v1Router);
+app.use("/fib", fibRouter);
 
 app.listen(port, () => {
     console.log(`App listening on the port ${port}`);
