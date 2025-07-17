@@ -13,10 +13,12 @@
 ### 1. フィボナッチ数API
 
 - エンドポイント: `GET /api/v1/fib?n={number}`
+- エンドポイント（ショートカット）: `GET /fib?n={number}`
 - 概要: n番目のフィボナッチ数を返します。
 - 例:  
   ```
   GET http://localhost:8080/api/v1/fib?n=10
+  GET http://localhost:8080/fib?n=10
   ```
   レスポンス例:
   ```json
@@ -110,91 +112,3 @@ docker-compose down
 ```bash
 docker compose exec backend bash
 ```
-
-- frontendコンテナの場合は`frontend`に変更してください。
-- bashが無い場合は`sh`でもOKです。
-
-#### bashから抜ける方法
-- `exit`と入力してEnter、または`Ctrl + D`で抜けられます。
-
-## ユニットテストの実行
-
-ユニットテストを実行するには、フロントエンドもしくはバックエンドのディレクトリで`npm test`を実行します。
-すなわち、
-
-```bash
-cd backend
-npm test
-```
-
-もしくは
-
-```bash
-cd frontend
-npm test
-```
-
-のどちらかのコマンドを実行してください。
-
-ユニットテストは[Jest](https://jestjs.io/ja/)を使用して記述します。
-テストファイルは `**/?(*.)+(spec|test).[jt]s?(x)` という形式のファイル名で保存する必要があります。
-
-例えば
-
-- `frontend/src/app/components/sample.test.ts`
-- `backend/src/employee/sample.spec.ts`
-
-などです。
-
-## APIドキュメント（Swagger UI）
-
-### 概要
-このプロジェクトのバックエンドAPIは、OpenAPI（Swagger）仕様に基づき自動生成されたドキュメントを提供しています。
-
-### 使い方
-1. バックエンドサーバーを起動します。
-   - 例: `cd backend && npm start` または `npm run dev`
-2. ブラウザで以下のURLにアクセスします。
-   - `http://localhost:8080/api-docs`（ポート番号は環境変数や設定により異なる場合があります）
-3. Swagger UI上でAPIエンドポイントの仕様やリクエスト・レスポンス例を確認できます。
-
-### エンドポイント仕様の追加・更新方法
-- 各APIエンドポイントの上部にJSDoc形式で `@openapi` コメントを記述してください。
-- サーバーを再起動すると自動的にドキュメントが反映されます。
-
-#### JSDocコメント例
-```typescript
-/**
- * @openapi
- * /api/example:
- *   get:
- *     summary: サンプルAPIエンドポイント
- *     description: "Hi, an API endpoint is available. を返すサンプルAPI"
- *     responses:
- *       200:
- *         description: 正常時のレスポンス
- *         content:
- *           application/json:
- *             schema:
- *               type: string
- */
-```
-
-## APIバージョニングについて
-
-本プロジェクトのAPIは、将来的な仕様変更や後方互換性維持のため、バージョン管理（バージョニング）を導入しています。
-
-### パス設計
-- すべてのAPIエンドポイントは `/api/v1/` のようにバージョン番号を含むパスで提供されます。
-  - 例: `/api/v1/example`
-
-### バージョン追加・運用方法
-- 新しいAPI仕様を導入する場合は、`/api/v2/` のように新バージョン用のルーター・エンドポイントを作成してください。
-- 既存のバージョン（例: v1）は、既存クライアントのためにしばらく維持することが推奨されます。
-- バージョンごとにルーティングやコントローラーを分離することで、保守性・変更容易性が向上します。
-
-### 注意点
-- フロントエンドや外部連携先も、必ず新しいバージョンのパスを参照するように修正してください。
-- テストコードやドキュメントもバージョンに合わせて更新してください。
-
----
